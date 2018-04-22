@@ -9,6 +9,10 @@ class Ant {
     direction = int(random(4));
   }
 
+  boolean samePosition(Ant otherAnt) {
+     return x == otherAnt.x && y == otherAnt.y; 
+  }
+
   void moveRight() {
     direction++;
     if (direction > 3) {

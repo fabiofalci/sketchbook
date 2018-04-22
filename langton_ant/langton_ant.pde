@@ -1,7 +1,6 @@
 
 int[][] grid;
-Ant ant1;
-Ant ant2;
+Ant[] ants;
 
 int D_UP = 0;
 int D_RIGHT = 1;
@@ -22,9 +21,11 @@ void setup() {
   //fullScreen();
 
   grid = new int[width][height];
-  
-  ant1 = new Ant();
-  ant2 = new Ant();
+
+  ants = new Ant[2];
+  for (int i = 0; i < ants.length; i++) {
+    ants[i] = new Ant();
+  }
 
   image = createImage(width, height, RGB);
   image.loadPixels();
@@ -44,12 +45,17 @@ void draw() {
   image.loadPixels();
 
   for (int i = 0; i < stepsPerFrame; i++) {
-    ant1.move();
-    ant2.move();
+    for (Ant ant : ants) {
+      ant.move();
+    }
+
+    //if (ant2.samePosition(ant1)) {
+    // noLoop(); 
+    //}
   }
-  
+
   image.updatePixels();
-  image(image,0,0);
+  image(image, 0, 0);
 
   fill(0);
   rect(5, 5, 120, 20);
@@ -58,6 +64,6 @@ void draw() {
   textFont(f, 16);                  
   fill(255);                         
   text("Steps " + steps, 10, 20);
-  
+
   //saveFrame("frames/#####.tif");
 }
