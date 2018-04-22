@@ -5,17 +5,17 @@ Quick quick;
 
 int BOTTOM_MARGIN = 600;
 int LEFT_MARGIN = 30;
-int ARRAY_LENGTH = 100;
+int ARRAY_LENGTH = 15;
 
 PImage screen;
 
 void setup() {
   size(900, 700);
-  frameRate(90);
+  //frameRate(10);
 
   int[] array = new int[ARRAY_LENGTH];
   for (int i=0; i < array.length; i++) {
-    array[i] = int(random(500));
+    array[i] = int(random(100));
   }
 
   int[] bubbleArray = new int[array.length];
@@ -36,7 +36,7 @@ void setup() {
 
 void draw() {
   bubble.sort();
-
+  quick.sort();
 
   screen.loadPixels();
   clearScreen();
