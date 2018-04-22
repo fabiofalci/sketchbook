@@ -19,12 +19,13 @@ int steps;
 int stepsPerFrame;
 
 void setup() {
-  size(900, 700); 
+  size(800, 600); 
+  //fullScreen();
 
   grid = new int[width][height];
-  x = width / 2;
-  y = height / 2;
-  direction = D_UP;
+  x = int(random(width));
+  y = int(random(height));
+  direction = int(random(4));
 
   ant = createImage(width, height, RGB);
   ant.loadPixels();
@@ -35,7 +36,7 @@ void setup() {
 
   f = createFont("Arial", 20, true);
   steps = 0;
-  stepsPerFrame = 1200;
+  stepsPerFrame = 500;
 }
 
 void moveRight() {
@@ -101,7 +102,6 @@ void draw() {
 
   ant.loadPixels();
 
-
   for (int i = 0; i < stepsPerFrame; i++) {
     move();
   }
@@ -130,5 +130,5 @@ void draw() {
   fill(255);                         
   text("Steps " + steps, 10, 20);
   
-  saveFrame("frames/#####.tif");
+  //saveFrame("frames/#####.tif");
 }
