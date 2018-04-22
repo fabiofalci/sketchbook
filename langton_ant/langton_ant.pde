@@ -1,8 +1,7 @@
 
 int[][] grid;
-int x;
-int y;
-int direction;
+Ant ant1;
+Ant ant2;
 
 int D_UP = 0;
 int D_RIGHT = 1;
@@ -23,9 +22,10 @@ void setup() {
   //fullScreen();
 
   grid = new int[width][height];
-  x = int(random(width));
-  y = int(random(height));
-  direction = int(random(4));
+  
+  ant1 = new Ant();
+  ant2 = new Ant();
+
 
   ant = createImage(width, height, RGB);
   ant.loadPixels();
