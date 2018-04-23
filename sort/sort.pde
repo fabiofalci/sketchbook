@@ -11,7 +11,7 @@ PImage screen;
 
 void setup() {
   size(900, 700);
-  //frameRate(10);
+  //frameRate(120);
 
   int[] array = new int[ARRAY_LENGTH];
   for (int i=0; i < array.length; i++) {
@@ -35,8 +35,8 @@ void setup() {
 }
 
 void draw() {
-  bubble.sort();
-  quick.sort();
+  if (!bubble.done) bubble.sort();
+  if (!quick.done) quick.sort();
 
   screen.loadPixels();
   clearScreen();
@@ -48,6 +48,7 @@ void draw() {
   if (bubble.done && quick.done) {
     noLoop();
   }
+  //println(frameRate);
 }
 
 void clearScreen() {

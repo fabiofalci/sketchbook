@@ -21,38 +21,32 @@ class Quick {
   }
 
   void sort() {
-    List toAdd = new ArrayList();
+    Pivot pivot = pivots.get(0);
+    pivot.sort();
+    if (pivot.done) {
+      pivots.remove(0); 
 
-    ListIterator<Pivot> iter = pivots.listIterator();
-    while (iter.hasNext()) {
-      Pivot pivot = iter.next();
-      pivot.sort();
-      if (pivot.done) {
-        iter.remove();
-        Pivot low = new Pivot();
-        low.from = pivot.from;
-        low.to = pivot.pivot - 1;
-        low.index = pivot.from;
-        low.pivot = pivot.pivot - 1;
+      Pivot low = new Pivot();
+      low.from = pivot.from;
+      low.to = pivot.pivot - 1;
+      low.index = pivot.from;
+      low.pivot = pivot.pivot - 1;
 
-        Pivot high= new Pivot();
-        high.from = pivot.pivot + 1;
-        high.to = pivot.to;
-        high.index = pivot.pivot + 1;
-        high.pivot = pivot.to;
+      Pivot high= new Pivot();
+      high.from = pivot.pivot + 1;
+      high.to = pivot.to;
+      high.index = pivot.pivot + 1;
+      high.pivot = pivot.to;
 
-        if (low.to - low.from > 0) {       
-          toAdd.add(low);
-        }
+      if (low.to - low.from > 0) {       
+        pivots.add(low);
+      }
 
-        if (high.to - high.from > 0) {
-          toAdd.add(high);
-        }
+      if (high.to - high.from > 0) {
+        pivots.add(high);
       }
     }
 
-    pivots.addAll(toAdd);
-    
     if (pivots.isEmpty()) {
       done = true;
     }
@@ -83,11 +77,11 @@ class Quick {
       int swap = array[pivot - 1];
       array[pivot - 1] = array[index];
       array[index] = swap;
-      
+
       swap = array[pivot - 1];
       array[pivot - 1] = array[pivot];
       array[pivot] = swap;
-      
+
       pivot--;
     }
   }
