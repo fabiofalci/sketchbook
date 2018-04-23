@@ -89,7 +89,7 @@ class Quick {
   void drawArray(int leftMargin) {
     for (int i = 0; i < array.length; i++) {
       int elem = BOTTOM_MARGIN;
-      color c = color(0);
+      color c = color(scaleColor(array[i]));
 
       for (Pivot pivot : pivots) {
         if (!pivot.done && i == pivot.pivot) {
@@ -112,4 +112,5 @@ class Quick {
     }
     return str.toString();
   }
+
 }
