@@ -3,6 +3,7 @@ import java.util.*;
 class Quick {
   int[] array;
   List<Pivot> pivots;
+  boolean done;
 
   public Quick(int[] array) {
     this.array = array;
@@ -16,7 +17,7 @@ class Quick {
     pivots = new ArrayList();
     pivots.add(pivot);
 
-    println(Arrays.toString(array));
+    //println(Arrays.toString(array));
   }
 
   void sort() {
@@ -40,17 +41,21 @@ class Quick {
         high.index = pivot.pivot + 1;
         high.pivot = pivot.to;
 
-        if (low.to - low.from > 1) {       
+        if (low.to - low.from > 0) {       
           toAdd.add(low);
         }
 
-        if (high.to - high.from > 1) {
+        if (high.to - high.from > 0) {
           toAdd.add(high);
         }
       }
     }
 
     pivots.addAll(toAdd);
+    
+    if (pivots.isEmpty()) {
+      done = true;
+    }
   }
 
   class Pivot {
@@ -68,7 +73,7 @@ class Quick {
 
       if (array[index] >= array[pivot]) {
         moveRight();
-        println(Arrays.toString(array) + " " + pivots.size() + ": " + printPivots());
+        //println(Arrays.toString(array) + " " + pivots.size() + ": " + printPivots());
       } else {
         index++;
       }
@@ -109,7 +114,7 @@ class Quick {
   String printPivots() {
     StringBuilder str = new StringBuilder();
     for (Pivot pivot : pivots) {
-      str.append(pivot.pivot + ": " + array[pivot.pivot] + " " + pivot.index + ", ");
+      str.append(array[pivot.pivot] + "=" + array[pivot.index] + ", ");
     }
     return str.toString();
   }

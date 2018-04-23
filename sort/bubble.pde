@@ -3,6 +3,8 @@ class Bubble {
   int index;
   int length;
   boolean swapped;
+  boolean done;
+  
   public Bubble(int[] array) {
     this.array = array;
     index = 0;
@@ -23,7 +25,7 @@ class Bubble {
     if (index + 1 == length) {
       length--;
       if (!swapped) {
-        noLoop();
+        done = true;
       }
 
       index = 0;
