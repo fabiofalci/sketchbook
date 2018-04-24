@@ -21,31 +21,32 @@ void setup() {
 
 void draw() {
     stroke(255);
+    strokeWeight(1);
 
     if (frameCount % 40 == 0) {
         heart.pump();
     }
 
-    history.addFirst(new Position(x, heart.position + height / 2));
+    Position current = new Position(x, heart.position + height / 2);
+    if (history.isEmpty()) {
+        point(current.x, current.y);
+    } else {
+        Position previous = history.getFirst();
+        if (previous.y != current.y) {
+            line(previous.x, previous.y, current.x, current.y);
+        } else {
+            point(current.x, current.y);
+        }
+    }
 
-    point(x,  heart.position + height / 2);
-
-//    if (up) {
-//        line(x - 1, y, x, y - JUMP);
-//    } else if (middle) {
-//        line(x - 1, y - JUMP, x, y);
-//    } else if (down) {
-//        line(x - 1, y, x, y + JUMP / 2);
-//    } else if (down) {
-//        line(x - 1, y + JUMP / 2, x, y);
-//    } else {
-//        point(x,  y);
-//    }
+    history.addFirst(current);
 
     if (history.size() > length) {
         stroke(0);
-        Position lastPosition = history.removeLast();
-        point(lastPosition.x, lastPosition.y);
+        strokeWeight(2);
+        Position removed = history.removeLast();
+        Position last = history.getLast();
+        line(removed.x, removed.y, last.x, last.y);
     }
 
     x += 1;
@@ -67,7 +68,7 @@ class Position {
 
 class Heart {
 
-    int JUMP = 40;
+    int JUMP = -40;
 
     int position;
     boolean justJumped;
@@ -81,14 +82,15 @@ class Heart {
             justJumped = true;
             position = 0;
         } else if (justJumped) {
-            position = JUMP / 2;
+            position = abs(JUMP) / 2;
+            justJumped = false;
         } else {
             position = 0;
         }
     }
 
     void pump() {
-        position = -JUMP;
+        position = JUMP;
     }
 
 }
