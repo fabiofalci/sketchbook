@@ -2,36 +2,67 @@
 
 int x;
 int length;
-int y;
+int JUMP = 40;
+
+boolean up;
+boolean middle;
+boolean down;
+boolean normal;
 
 void setup() {
     size(900, 700);
+    background(0);
 
-    x = 10;
+    x = 0;
     length = 300;
-    y = height / 2;
+    up = false;
+    middle = false;
+    down = false;
+    normal = false;
 }
 
 void draw() {
-    background(0);
-
     stroke(255);
 
-    boolean outOfBounds = x + length > width;
+    int y = height / 2;
 
-    line(x, y, outOfBounds ? width : x + length, y);
-
-    if (outOfBounds) {
-        line(0, y, x + length - width, y);
-        ellipse(x + length - width, y, 5, 5);
-    } else {
-        ellipse(x + length, y, 5, 5);
+    if (frameCount % 40 == 0) {
+        up = true;
     }
 
+    if (up) {
+        line(x - 1, y, x, y - JUMP);
+    } else if (middle) {
+        line(x - 1, y - JUMP, x, y);
+    } else if (down) {
+        line(x - 1, y, x, y + JUMP / 2);
+    } else if (down) {
+        line(x - 1, y + JUMP / 2, x, y);
+    } else {
+        point(x,  y);
+    }
 
-    x += 3;
+    stroke(0);
+    int lastPosition = x - length;
+    if (lastPosition < 0) {
+        lastPosition += width;
+    }
+    point(lastPosition, y);
 
+    x += 1;
     if (x >= width) {
         x = 0;
+    }
+    if (up) {
+        up = false;
+        middle = true;
+    } else if (middle) {
+        middle = false;
+        down = true;
+    } else if (down) {
+        down = false;
+        normal = true;
+    } else if (normal) {
+        normal = false;
     }
 }
