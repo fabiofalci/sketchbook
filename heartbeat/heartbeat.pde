@@ -1,6 +1,7 @@
 import java.util.*;
 
 
+int JUMP = -40;
 int x;
 int y;
 int length;
@@ -23,7 +24,7 @@ void draw() {
     stroke(255);
     strokeWeight(1);
 
-    if (frameCount % 40 == 0) {
+    if (frameCount % 70 == 0) {
         heart.pump();
     }
 
@@ -45,8 +46,7 @@ void draw() {
         stroke(0);
         strokeWeight(2);
         Position removed = history.removeLast();
-        Position last = history.getLast();
-        line(removed.x, removed.y, last.x, last.y);
+        line(removed.x, JUMP + height / 2, removed.x, abs(JUMP) + height / 2);
     }
 
     x += 1;
@@ -68,7 +68,6 @@ class Position {
 
 class Heart {
 
-    int JUMP = -40;
 
     int position;
     boolean justJumped;
