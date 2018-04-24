@@ -1,68 +1,94 @@
+import java.util.*;
 
 
 int x;
+int y;
 int length;
-int JUMP = 40;
+Heart heart;
+Deque<Position> history;
 
-boolean up;
-boolean middle;
-boolean down;
-boolean normal;
 
 void setup() {
     size(900, 700);
     background(0);
 
+    heart = new Heart();
+    history = new LinkedList();
     x = 0;
+    y = height / 2;
     length = 300;
-    up = false;
-    middle = false;
-    down = false;
-    normal = false;
 }
 
 void draw() {
     stroke(255);
 
-    int y = height / 2;
-
     if (frameCount % 40 == 0) {
-        up = true;
+        heart.pump();
     }
 
-    if (up) {
-        line(x - 1, y, x, y - JUMP);
-    } else if (middle) {
-        line(x - 1, y - JUMP, x, y);
-    } else if (down) {
-        line(x - 1, y, x, y + JUMP / 2);
-    } else if (down) {
-        line(x - 1, y + JUMP / 2, x, y);
-    } else {
-        point(x,  y);
-    }
+    history.addFirst(new Position(x, heart.position + height / 2));
 
-    stroke(0);
-    int lastPosition = x - length;
-    if (lastPosition < 0) {
-        lastPosition += width;
+    point(x,  heart.position + height / 2);
+
+//    if (up) {
+//        line(x - 1, y, x, y - JUMP);
+//    } else if (middle) {
+//        line(x - 1, y - JUMP, x, y);
+//    } else if (down) {
+//        line(x - 1, y, x, y + JUMP / 2);
+//    } else if (down) {
+//        line(x - 1, y + JUMP / 2, x, y);
+//    } else {
+//        point(x,  y);
+//    }
+
+    if (history.size() > length) {
+        stroke(0);
+        Position lastPosition = history.removeLast();
+        point(lastPosition.x, lastPosition.y);
     }
-    point(lastPosition, y);
 
     x += 1;
     if (x >= width) {
         x = 0;
     }
-    if (up) {
-        up = false;
-        middle = true;
-    } else if (middle) {
-        middle = false;
-        down = true;
-    } else if (down) {
-        down = false;
-        normal = true;
-    } else if (normal) {
-        normal = false;
+    heart.reset();
+}
+
+class Position {
+    int x;
+    int y;
+
+    Position(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
+}
+
+class Heart {
+
+    int JUMP = 40;
+
+    int position;
+    boolean justJumped;
+
+    Heart() {
+        position = 0;
+    }
+
+    void reset() {
+        if (position == JUMP) {
+            justJumped = true;
+            position = 0;
+        } else if (justJumped) {
+            position = JUMP / 2;
+        } else {
+            position = 0;
+        }
+    }
+
+    void pump() {
+        position = -JUMP;
+    }
+
 }
