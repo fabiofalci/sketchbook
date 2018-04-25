@@ -29,16 +29,13 @@ void draw() {
     }
 
     Position current = new Position(x, heart.position + height / 2);
+    Position previous;
     if (history.isEmpty()) {
-        point(current.x, current.y);
+        previous = current;
     } else {
-        Position previous = history.getFirst();
-        if (previous.y != current.y) {
-            line(previous.x, previous.y, current.x, current.y);
-        } else {
-            point(current.x, current.y);
-        }
+        previous = history.getFirst();
     }
+    line(previous.x, previous.y, current.x, current.y);
 
     history.addFirst(current);
 
