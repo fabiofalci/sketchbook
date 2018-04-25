@@ -2,6 +2,7 @@ import java.util.*;
 
 
 int JUMP = -40;
+int PACE = 2;
 int x;
 int y;
 int length;
@@ -17,7 +18,9 @@ void setup() {
     history = new LinkedList();
     x = 0;
     y = height / 2;
-    length = 200;
+
+    float maxLength = width / PACE;
+    length = int(maxLength * 0.9);
 }
 
 void draw() {
@@ -51,7 +54,7 @@ void draw() {
         line(removed.x - 1, JUMP + height / 2 - 10, removed.x, abs(JUMP) + height / 2);
     }
 
-    x += 2;
+    x += PACE;
     if (x >= width) {
         x = 0;
     }
