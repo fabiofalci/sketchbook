@@ -46,7 +46,7 @@ void draw() {
 
     if (history.size() > length) {
         stroke(0);
-        strokeWeight(2);
+        strokeWeight(3);
         Position removed = history.removeLast();
         line(removed.x - 1, JUMP + height / 2 - 10, removed.x, abs(JUMP) + height / 2);
     }
