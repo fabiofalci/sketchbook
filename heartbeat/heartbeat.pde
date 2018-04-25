@@ -17,12 +17,12 @@ void setup() {
     history = new LinkedList();
     x = 0;
     y = height / 2;
-    length = 300;
+    length = 200;
 }
 
 void draw() {
     stroke(255);
-    strokeWeight(1);
+    strokeWeight(2);
 
     if (frameCount % 70 == 0) {
         heart.pump();
@@ -30,11 +30,16 @@ void draw() {
 
     Position current = new Position(x, heart.position + height / 2);
     Position previous;
-    if (history.isEmpty()) {
-        previous = current;
-    } else {
+    if (!history.isEmpty()) {
         previous = history.getFirst();
+        if (previous.x > current.x) {
+            previous = current;
+        }
+    } else {
+        previous = current;
     }
+
+
     line(previous.x, previous.y, current.x, current.y);
 
     history.addFirst(current);
@@ -43,10 +48,10 @@ void draw() {
         stroke(0);
         strokeWeight(2);
         Position removed = history.removeLast();
-        line(removed.x, JUMP + height / 2, removed.x, abs(JUMP) + height / 2);
+        line(removed.x - 1, JUMP + height / 2 - 10, removed.x, abs(JUMP) + height / 2);
     }
 
-    x += 1;
+    x += 2;
     if (x >= width) {
         x = 0;
     }
