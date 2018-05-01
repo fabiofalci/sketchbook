@@ -48,10 +48,7 @@ void draw() {
     history.addFirst(current);
 
     if (history.size() > length) {
-        stroke(0);
-        strokeWeight(3);
-        Position removed = history.removeLast();
-        line(removed.x - 1, JUMP * 2 + height / 2 - 10, removed.x, abs(JUMP) + height / 2);
+        clearTail();
     }
 
     x += PACE;
@@ -59,6 +56,13 @@ void draw() {
         x = 0;
     }
     heart.reset();
+}
+
+void clearTail() {
+    stroke(0);
+    strokeWeight(3);
+    Position removed = history.removeLast();
+    line(removed.x - 1, JUMP * 2 + height / 2 - 10, removed.x, abs(JUMP) + height / 2);
 }
 
 class Position {
