@@ -51,7 +51,7 @@ void draw() {
         stroke(0);
         strokeWeight(3);
         Position removed = history.removeLast();
-        line(removed.x - 1, JUMP + height / 2 - 10, removed.x, abs(JUMP) + height / 2);
+        line(removed.x - 1, JUMP * 2 + height / 2 - 10, removed.x, abs(JUMP) + height / 2);
     }
 
     x += PACE;
@@ -73,28 +73,30 @@ class Position {
 
 class Heart {
 
-
+    int[] stages;
+    int index;
     int position;
-    boolean justJumped;
 
     Heart() {
+        stages = new int[]{1, 2, 1, 0, -1, 0};
+        index = -1;
         position = 0;
     }
 
     void reset() {
-        if (position == JUMP) {
-            justJumped = true;
+        if (index == -1) {
             position = 0;
-        } else if (justJumped) {
-            position = abs(JUMP) / 2;
-            justJumped = false;
-        } else {
-            position = 0;
+        }  else {
+            position = stages[index] * JUMP;
+            if (stages.length <= ++index) {
+                index = -1;
+            }
         }
+
     }
 
     void pump() {
-        position = JUMP;
+        index = 0;
     }
 
 }
