@@ -16,12 +16,10 @@ void drawOneRectAndLines() {
     int columns = (width - (BORDER + BORDER)) / SQUARE_SIZE;
     int rows = (height - (BORDER + BORDER)) / SQUARE_SIZE;
 
-    rect(BORDER, BORDER, columns * SQUARE_SIZE, rows * SQUARE_SIZE);
-
-    for (int i=0 ; i < rows; i++) {
+    for (int i=0 ; i < rows + 1; i++) {
         line(BORDER, BORDER + SQUARE_SIZE * i, BORDER + SQUARE_SIZE * columns, BORDER + SQUARE_SIZE * i);
     }
-    for (int i=0 ; i < columns; i++) {
+    for (int i=0 ; i < columns + 1; i++) {
         line(BORDER + SQUARE_SIZE * i, BORDER, BORDER + SQUARE_SIZE * i, BORDER + SQUARE_SIZE * rows);
     }
 }
