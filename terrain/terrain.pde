@@ -1,16 +1,18 @@
 int SQUARE_SIZE = 70;
 int BORDER = 10;
 
+
 void setup() {
-    size(900, 700);
-//    size(900, 700, P3D);
+//    size(900, 700);
+    size(900, 700, P3D);
 }
 
 void draw() {
     noFill();
     strokeWeight(2);
-    // drawVariousRect();
-    drawOneRectAndLines2D();
+//    drawVariousRect();
+//    drawOneRectAndLines2D();
+    drawOneRectAndLines3D();
 
 //    line(120, 80, 0, 340, 80, 60);
 //    stroke(126);
@@ -19,15 +21,15 @@ void draw() {
 //    line(340, 300, 0, 120, 300, -200);
 }
 
-void drawOneRectAndLines() {
+void drawOneRectAndLines3D() {
     int columns = (width - (BORDER + BORDER)) / SQUARE_SIZE;
     int rows = (height - (BORDER + BORDER)) / SQUARE_SIZE;
 
     for (int i=0 ; i < rows + 1; i++) {
-        line(BORDER, BORDER + SQUARE_SIZE * i, -(rows - i) * SQUARE_SIZE, BORDER + SQUARE_SIZE * rows, BORDER + SQUARE_SIZE * i, -(rows - i) * SQUARE_SIZE);
+        line(BORDER, BORDER + SQUARE_SIZE * i, -(rows - i) * SQUARE_SIZE, BORDER + SQUARE_SIZE * columns, BORDER + SQUARE_SIZE * i, -(rows - i) * SQUARE_SIZE);
     }
-    for (int i=0 ; i < 1; i++) {
-        line(BORDER + SQUARE_SIZE * i, BORDER, -(columns - i) * SQUARE_SIZE, BORDER + SQUARE_SIZE * i, BORDER + SQUARE_SIZE * columns, -(columns - i) * SQUARE_SIZE);
+    for (int i=0 ; i < columns + 1; i++) {
+        line(BORDER + SQUARE_SIZE * i, BORDER, -rows * SQUARE_SIZE, BORDER + SQUARE_SIZE * i, BORDER + SQUARE_SIZE * rows, 0);
     }
 }
 
