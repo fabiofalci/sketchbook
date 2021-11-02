@@ -1,5 +1,7 @@
 int SQUARE_SIZE = 70;
 int BORDER = 10;
+int count = 0;
+boolean countUp = true;
 
 
 void setup() {
@@ -8,6 +10,7 @@ void setup() {
 }
 
 void draw() {
+    background(255);
     noFill();
     strokeWeight(2);
 //    drawVariousRect();
@@ -25,11 +28,27 @@ void drawOneRectAndLines3D() {
     int columns = (width - (BORDER + BORDER)) / SQUARE_SIZE;
     int rows = (height - (BORDER + BORDER)) / SQUARE_SIZE;
 
+
+    // -1330
+
     for (int i=0 ; i < rows + 1; i++) {
-        line(BORDER, BORDER + SQUARE_SIZE * i, -(rows - i) * SQUARE_SIZE, BORDER + SQUARE_SIZE * columns, BORDER + SQUARE_SIZE * i, -(rows - i) * SQUARE_SIZE);
+        int z = -(rows - i) * SQUARE_SIZE + count;
+        line(BORDER, BORDER + SQUARE_SIZE * i, z, BORDER + SQUARE_SIZE * columns, BORDER + SQUARE_SIZE * i, z);
     }
     for (int i=0 ; i < columns + 1; i++) {
-        line(BORDER + SQUARE_SIZE * i, BORDER, -rows * SQUARE_SIZE, BORDER + SQUARE_SIZE * i, BORDER + SQUARE_SIZE * rows, 0);
+        int z = -rows * SQUARE_SIZE + count;
+        line(BORDER + SQUARE_SIZE * i, BORDER, z, BORDER + SQUARE_SIZE * i, BORDER + SQUARE_SIZE * rows, 0);
+    }
+
+    if (count == 1000) {
+        countUp = false;
+    } else if (count == 0) {
+        countUp = true;
+    }
+    if (countUp) {
+        count++;
+    } else {
+        count--;
     }
 }
 
