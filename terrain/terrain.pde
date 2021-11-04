@@ -16,18 +16,11 @@ void draw() {
 //    drawVariousRect();
 //    drawOneRectAndLines2D();
     drawOneRectAndLines3D();
-
-//    line(120, 80, 0, 340, 80, 60);
-//    stroke(126);
-//    line(340, 80, 60, 340, 300, 0);
-//    stroke(255);
-//    line(340, 300, 0, 120, 300, -200);
 }
 
 void drawOneRectAndLines3D() {
     int columns = (width - (BORDER + BORDER)) / SQUARE_SIZE;
     int rows = (height - (BORDER + BORDER)) / SQUARE_SIZE;
-
 
     // -1330
 
