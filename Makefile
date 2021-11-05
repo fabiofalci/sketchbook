@@ -13,3 +13,6 @@ langton_ant:
 terrain:
 	processing-java --sketch=$(CURDIR)/terrain --output=/tmp/output --force --run
 
+p_functions:
+	processing-java --sketch=$(CURDIR)/param_functions --output=/tmp/output --force --run
+
