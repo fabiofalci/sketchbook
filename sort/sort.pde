@@ -1,7 +1,7 @@
 
 Bubble bubble;
-
 Quick quick;
+Shell shell;
 
 int BOTTOM_MARGIN = 600;
 int LEFT_MARGIN = 30;
@@ -24,9 +24,13 @@ void setup() {
   int[] bubbleArray = new int[array.length];
   System.arraycopy(array, 0, bubbleArray, 0, array.length);
   int[] quickArray = new int[array.length];
-  System.arraycopy( array, 0, quickArray, 0, array.length );
+  System.arraycopy( array, 0, quickArray, 0, array.length);
+  int[] shellArray = new int[array.length];
+  System.arraycopy( array, 0, shellArray, 0, array.length);
+
   bubble = new Bubble(bubbleArray);
   quick = new Quick(quickArray);
+  shell = new Shell(shellArray);
 
   screen = createImage(width, height, RGB);
 
@@ -34,25 +38,29 @@ void setup() {
   clearScreen();
   bubble.drawArray(LEFT_MARGIN);
   quick.drawArray(LEFT_MARGIN + ARRAY_LENGTH + LEFT_MARGIN * 2);
+  shell.drawArray(LEFT_MARGIN + ARRAY_LENGTH + LEFT_MARGIN + LEFT_MARGIN + ARRAY_LENGTH + LEFT_MARGIN * 2);
   screen.updatePixels();
 }
 
 void draw() {
   if (!bubble.done) bubble.sort();
   if (!quick.done) quick.sort();
+  if (!shell.done) shell.sort();
 
   screen.loadPixels();
   clearScreen();
+
   bubble.drawArray(LEFT_MARGIN);
   quick.drawArray(LEFT_MARGIN + ARRAY_LENGTH + LEFT_MARGIN * 2);
+  shell.drawArray(LEFT_MARGIN + ARRAY_LENGTH + LEFT_MARGIN + LEFT_MARGIN + ARRAY_LENGTH + LEFT_MARGIN * 2);
+
   screen.updatePixels();
   image(screen, 0, 0);
 
-  if (bubble.done && quick.done) {
+  if (bubble.done && quick.done && shell.done) {
     noLoop();
   }
   //println(frameRate);
-
 
   fill(0);
   rect(5, 5, 120, 20);
