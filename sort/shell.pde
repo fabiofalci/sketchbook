@@ -14,8 +14,6 @@ class Shell {
     }
 
     void sort() {
-        println(j + " " + (j + gap) + "  " + gap);
-
         if (j >= 0 && array[j] > array[j + gap]) {
             int swap = array[j];
             array[j] = array[j + gap];
@@ -39,9 +37,9 @@ class Shell {
         for (int i = 0; i < array.length; i++) {
             int elem = BOTTOM_MARGIN;
             color c = color(scaleColor(array[i]));
-            // if (i == index) {
-            //   c = color(255, 0, 0);
-            // }
+             if (i == this.i || i == this.j) {
+               c = color(255, 0, 0);
+             }
             for (int j = 0; j < array[i]; j++) {
                 int column = leftMargin + i + (--elem) * screen.width;
                 screen.pixels[column] = c;
