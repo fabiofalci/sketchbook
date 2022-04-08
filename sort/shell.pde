@@ -1,49 +1,55 @@
 class Shell {
-  int[] array;
-  int index;
-  int length;
-  boolean swapped;
-  boolean done;
-  
-  public Shell(int[] array) {
-    this.array = array;
-    index = 0;
-    length = array.length;
-    swapped = false;
-  }
+    int[] array;
+    int gap;
+    int i;
+    int j;
 
-  void sort() {
-    if (array[index] > array[index + 1]) {
-      int swap = array[index]; 
-      array[index] = array[index + 1];
-      array[index + 1] = swap;
-      swapped = true;
+    boolean done;
+
+    public Shell(int[] array) {
+        this.array = array;
+        gap = array.length / 2;
+        i = gap;
+        j = i - gap;
     }
 
-    index++;
+    void sort() {
+        println(j + " " + (j + gap) + "  " + gap);
+        if (array[j] > array[j + gap]) {
+            int swap = array[j];
+            array[j] = array[j + gap];
+            array[j + gap] = swap;
+        }
 
-    if (index + 1 == length) {
-      length--;
-      if (!swapped) {
-        done = true;
-      }
 
-      index = 0;
-      swapped = false;
+        j -= gap;
+        if (j < 0) {
+            i++;
+            if (i >= array.length) {
+                gap /= 2;
+                if (gap <= 0) {
+                    done = true;
+                }
+                i = gap;
+            }
+            j = i - gap;
+        } else {
+            j = i - gap;
+        }
+
     }
-  }
 
-  void drawArray(int leftMargin) {
-    for (int i = 0; i < array.length; i++) {
-      int elem = BOTTOM_MARGIN;
-      color c = color(scaleColor(array[i]));
-      if (i == index) {
-        c = color(255, 0, 0);
-      }
-      for (int j = 0; j < array[i]; j++) {
-        int column = leftMargin + i + (--elem) * screen.width;
-        screen.pixels[column] = c;
-      }
+    void drawArray(int leftMargin) {
+        for (int i = 0; i < array.length; i++) {
+            int elem = BOTTOM_MARGIN;
+            color c = color(scaleColor(array[i]));
+            // if (i == index) {
+            //   c = color(255, 0, 0);
+            // }
+            for (int j = 0; j < array[i]; j++) {
+                int column = leftMargin + i + (--elem) * screen.width;
+                screen.pixels[column] = c;
+            }
+        }
     }
-  }
 }
