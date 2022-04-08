@@ -15,15 +15,14 @@ class Shell {
 
     void sort() {
         println(j + " " + (j + gap) + "  " + gap);
-        if (array[j] > array[j + gap]) {
+
+        if (j >= 0 && array[j] > array[j + gap]) {
             int swap = array[j];
             array[j] = array[j + gap];
             array[j + gap] = swap;
-        }
 
-
-        j -= gap;
-        if (j < 0) {
+            j -= gap;
+        } else {
             i++;
             if (i >= array.length) {
                 gap /= 2;
@@ -33,10 +32,7 @@ class Shell {
                 i = gap;
             }
             j = i - gap;
-        } else {
-            j = i - gap;
         }
-
     }
 
     void drawArray(int leftMargin) {
